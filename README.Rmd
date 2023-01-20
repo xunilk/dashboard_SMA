@@ -1,0 +1,43 @@
+---
+title: "Creación de un dashboard con Shiny app"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introducción
+
+Este proyecto prueba algunas de las funciones que se van a emplear en la  creacción de un dashboard con R; principalmente con la lectura y operaciones relacionadas con la base de datos **PC_emergencias_2022.csv**.
+
+## Carga la base de datos PC_emergencias_2022.csv.
+
+La base de datos contiene información sobre emergencias ocurridas en San Martín de los Andes entre los años 2015 y 2022; ambos inclusive. Como es un CVS se va a ocupar la librería tidyverse (válido también para los filtros). La base de datos se va a nombrar como test.
+
+```{r}
+
+library(tidyverse)
+
+test<- read_csv("data/PC_emergencias_2022.csv")
+
+test
+
+
+```
+
+
+```{r}
+
+library(leaflet)
+
+emerg_Map <- leaflet() %>% 
+  addTiles() %>% addCircleMarkers(data = test,
+                                  lat = ~y,
+                                  lng = ~x,
+                                  radius = 10,
+                                  opacity = 1)
+
+emerg_Map
+```
+
